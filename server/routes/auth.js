@@ -72,8 +72,26 @@ router.post('/register', async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+})
 
+router.get('/login', async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return res.status(422).json({ error: "Please Enter the data, properly in all fields" })
+    }
 
+    try {
+        const emailExists = await User.findOne({ email: email });
+        const passwordExists = await User.findOne({ password: password });
+        if (emailExists && passwordExists) {
+            return res.status(200).json({ message: "Login Successfull" });
+        }
+        else {
+            return res.status(401).json({ error: "Invalid Details" });
+        }
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 module.exports = router

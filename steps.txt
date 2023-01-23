@@ -6,3 +6,13 @@ Step 5 : Separated folder for connection
 Step 6 : Created Models 
 Step 7 : Created a separate folder for routes
 Step 8 : Storing the data into online database using promises
+
+
+Registration 
+1] All field must be filled
+2] Email must not be duplicate 
+3] User must be saved in to the database 
+
+Login
+1] All field must be filled
+2] Email and password must match with the email and password present in database
