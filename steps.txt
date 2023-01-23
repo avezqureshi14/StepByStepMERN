@@ -1,0 +1,8 @@
+Step 1 : Created Express Server
+Step 2 : Did temporay routing 
+Step 3 : Did Database Connection
+Step 4 : Secured API key and PORT using .env 
+Step 5 : Separated folder for connection
+Step 6 : Created Models 
+Step 7 : Created a separate folder for routes
+Step 8 : Storing the data into online database using promises
