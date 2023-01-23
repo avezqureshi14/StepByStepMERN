@@ -61,14 +61,19 @@ router.post('/register', async (req, res) => {
         if (userExists) {
             return res.status(422).json({ error: "Email already Exist" });
         }
+        else if (password != cpassword) {
+            return res.status(422).json({ error: "Password dosen't matched" });
+        }
+        else {
+            //if email dosent exists then add the user into database 
+            //Step 1 : fill all the data from the model in the variable user 
+            const user = new User({ name, email, phone, work, password, cpassword });
 
-        //if email dosent exists then add the user into database 
-        //Step 1 : fill all the data from the model in the variable user 
-        const user = new User({ name, email, phone, work, password, cpassword });
+            //Step 2 : save the variable user using save method 
+            await user.save();
+            res.status(201).json({ message: "User registered successfully" })
+        }
 
-        //Step 2 : save the variable user using save method 
-        await user.save();
-        res.status(201).json({ message: "User registered successfully" })
     } catch (err) {
         console.log(err);
     }
