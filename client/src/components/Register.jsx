@@ -11,10 +11,37 @@ const Register = () => {
         value = e.target.value;
         setUser({...user,[name]:value})
     }
+    const PostData = async (e) => {
+        e.preventDefault();
+
+        const{name,email,phone,work,password,cpassword} = user;
+        const res = await fetch("/register",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                name,email,phone,work,password,cpassword
+
+            })
+        })
+
+        const data = res.json();
+        if (data.status === 422 || !data ) {
+            window.alert("Invalid Regsitration ");
+            console.log("Invalid Regsitration ");
+            console.log(data)
+        }
+        else{
+            window.alert("Regsitration Successfull ");
+            console.log("Regsitration Successfull");
+            console.log(data)
+        }
+    }
   return (
     <div>
             <div className='container mt-5' >
-            <form className='container mt-5' autoComplete='off' autofill='off' >
+            <form method='POST' className='container mt-5' autoComplete='off' autofill='off' >
             <h1 className='mb-3'  >Register</h1>
                     <div  className="form-outline mb-4">
                         <input type="text" name="name" value={user.name} onChange={handleInputs} id="form2Example1"  className="form-control" />
@@ -55,7 +82,7 @@ const Register = () => {
                         </div>
                     </div>
 
-                    <button type="button"  className="btn btn-primary btn-block mb-4">Register</button>
+                    <button type="button"  className="btn btn-primary btn-block mb-4" onClick={PostData} >Register</button>
 
                     <div  className="text-center">
                         <p>Already a member? <Link to='/login'>Login</Link></p>

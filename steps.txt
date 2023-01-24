@@ -16,3 +16,8 @@ Registration
 Login
 1] All field must be filled
 2] Email and password must match with the email and password present in database
+
+CORS Policy error exists we are working on one server(http://localhost:3000) and we are trying to send data on other server(http://localhost:5000)
+it can be solved by two ways 
+1] if you had just included /pathOfbackend then including proxy in package.json of the client will dolve the error
+2] but if you had included http://localhost:5000/pathofbackend then we inlude cors in our express server
