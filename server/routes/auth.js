@@ -1,4 +1,5 @@
 const { request } = require('express');
+const jwt = require('jsonwebtoken')
 const express = require('express');
 const bcrypt = require('bcryptjs')
 router = express.Router();
@@ -90,6 +91,16 @@ router.get('/login', async (req, res) => {
         const userLogin = await User.findOne({ email: email });
         if (userLogin) {
             const isMatch = await bcrypt.compare(password, userLogin.password)
+
+            //User token generation Step 12
+            const token = await userLogin.generateAuthToken();
+            console.log(token)
+
+            //Storing generated token inside the cookie
+            res.cookie("jwtoken",token,{
+                expires: new Date(Date.now() + 25892000000),
+                httpOnly:true
+            })
 
             if (!isMatch) {
                 res.status(400).json({ error: "Invalid Details" });
